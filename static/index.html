@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="tempLogger">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> <!-- include the angular library -->
+    
+    <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/angular.chartjs/1.1.1/angular-chart.min.js"></script>
+
+    <script src="templogger.js"></script>
+    <link 
+      rel="stylesheet" 
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+      crossorigin="anonymous"
+    > <!-- include Bootstrap CSS -->
+  </head>
+  <body ng-controller="GraphCtrl">
+    <div class="container">
+      <h1>Temperatures logged in the past 24-hours</h1>
+      <canvas 
+        class="chart chart-line" 
+        chart-data="chartData"
+        chart-labels="chartLabels"
+        chart-options="options"></canvas>
+      <table ng-table="tableParams" class="table">
+        <tr ng-repeat="timeAndTemp in $data">
+          <td title="'Time'" sortable="'timestamp'">
+              {{timeAndTemp.time | date:'MM-dd h:mma'}}</td>
+          <td title="'Temperature'" sortable="'temp'">
+              {{timeAndTemp.temp}}°C</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
